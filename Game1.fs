@@ -3,7 +3,7 @@
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Graphics
 open Microsoft.Xna.Framework.Content
-open Microsoft.Xna.Framework.Input
+open Microsoft.Xna.Framework.Input 
 
 type TargetGame () as x =
     inherit Game()
@@ -21,9 +21,18 @@ type TargetGame () as x =
     let mutable targetPosition = Vector2(300f, 300f)
     let targetRadius = 45
 
-    // let getMovementVector (state: KeyboardState) =
-    //     if state.IsKeyDown Keys.W then Vector2(0f,-1f)
-    //     else Vector2(0f,0f)
+    let mutable mState = Unchecked.defaultof<MouseState>
+    let mutable Score = 0
+
+    let increaseScore (mState: MouseState) score=
+        if mState.LeftButton = ButtonState.Pressed then score + 1 else score
+
+    // let (|KeyDown|_|) k (state: KeyboardState) =
+    //     if state.IsKeyDown k then Some() else None
+
+    // let getMovementVector = function
+    //     | KeyDown Keys.W -> Vector2(0f,-1f)
+    //     | _ -> Vector2.Zero
 
     override x.Initialize() =
         spriteBatch <- new SpriteBatch(x.GraphicsDevice)
@@ -36,11 +45,11 @@ type TargetGame () as x =
         gameFont <- this.Content.Load<SpriteFont>("galleryFont")
  
     override this.Update (gameTime) =
+        mState <- Mouse.GetState()
+        if mState.LeftButton = ButtonState.Pressed then Score <- Score + 1
 
-         // TODO: Add your update logic here
-        
-        ()
- 
+        base.Update(gameTime)
+
     override this.Draw (gameTime) =
         x.GraphicsDevice.Clear Color.CornflowerBlue
         spriteBatch.Begin()
