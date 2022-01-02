@@ -11,8 +11,10 @@ type TargetGame () as x =
     do x.IsMouseVisible <- true
     let graphics = new GraphicsDeviceManager(x)
     let mutable spriteBatch = Unchecked.defaultof<SpriteBatch>
+    let mutable targetSprite = Unchecked.defaultof<Texture2D>
+    let mutable crosshairsSprite = Unchecked.defaultof<Texture2D>
+    let mutable backgroundSprite = Unchecked.defaultof<Texture2D>
     
-
     override x.Initialize() =
     
         spriteBatch <- new SpriteBatch(x.GraphicsDevice)
@@ -23,13 +25,9 @@ type TargetGame () as x =
         ()
 
     override this.LoadContent() =
-        
-         // TODO: use x.Content to load your game content here   
-         // On Windows you can load any PNG file directly as Texture2D
-         // Read more about MonoGame's Content Pipeline: https://docs.monogame.net/articles/tools/mgcb_editor.html
-         // or install it with package manager console: [dotnet tool install -g dotnet-mgcb-editor]
-        
-        ()
+        targetSprite <- this.Content.Load<Texture2D>("target") 
+        crosshairsSprite <- this.Content.Load<Texture2D>("crosshairs") 
+        backgroundSprite <- this.Content.Load<Texture2D>("sky") 
  
     override this.Update (gameTime) =
 

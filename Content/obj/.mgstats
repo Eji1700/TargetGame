@@ -1,0 +1,5 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Code/F#/TargetGame/Content/crosshairs.png","C:/Code/F#/TargetGame/Content/bin/crosshairs.xnb","TextureProcessor","Texture2DContent",1892,10085,0.5892328
+"C:/Code/F#/TargetGame/Content/galleryFont.spritefont","C:/Code/F#/TargetGame/Content/bin/galleryFont.xnb","FontDescriptionProcessor","SpriteFontContent",2065,70690,0.2866075
+"C:/Code/F#/TargetGame/Content/sky.png","C:/Code/F#/TargetGame/Content/bin/sky.xnb","TextureProcessor","Texture2DContent",1079607,9216085,0.3815869
+"C:/Code/F#/TargetGame/Content/target.png","C:/Code/F#/TargetGame/Content/bin/target.xnb","TextureProcessor","Texture2DContent",3395,32485,0.0115628
