@@ -3,6 +3,7 @@
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Graphics
 open Microsoft.Xna.Framework.Content
+open Microsoft.Xna.Framework.Input
 
 type TargetGame () as x =
     inherit Game()
@@ -11,11 +12,19 @@ type TargetGame () as x =
     do x.IsMouseVisible <- true
     let graphics = new GraphicsDeviceManager(x)
     let mutable spriteBatch = Unchecked.defaultof<SpriteBatch>
+
     let mutable targetSprite = Unchecked.defaultof<Texture2D>
     let mutable crosshairsSprite = Unchecked.defaultof<Texture2D>
     let mutable backgroundSprite = Unchecked.defaultof<Texture2D>
     let mutable gameFont = Unchecked.defaultof<SpriteFont>
     
+    let mutable targetPosition = Vector2(300f, 300f)
+    let targetRadius = 45
+
+    // let getMovementVector (state: KeyboardState) =
+    //     if state.IsKeyDown Keys.W then Vector2(0f,-1f)
+    //     else Vector2(0f,0f)
+
     override x.Initialize() =
         spriteBatch <- new SpriteBatch(x.GraphicsDevice)
         base.Initialize()
@@ -37,6 +46,7 @@ type TargetGame () as x =
         spriteBatch.Begin()
         spriteBatch.Draw(backgroundSprite, Vector2(0f, 0f), Color.White)
         spriteBatch.DrawString(gameFont, "Test Message", Vector2(100f,100f), Color.White)
+        spriteBatch.Draw(targetSprite, targetPosition, Color.White)
         spriteBatch.End()
 
         base.Draw(gameTime)
