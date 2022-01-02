@@ -14,6 +14,7 @@ type TargetGame () as x =
     let mutable targetSprite = Unchecked.defaultof<Texture2D>
     let mutable crosshairsSprite = Unchecked.defaultof<Texture2D>
     let mutable backgroundSprite = Unchecked.defaultof<Texture2D>
+    let mutable gameFont = Unchecked.defaultof<SpriteFont>
     
     override x.Initialize() =
         spriteBatch <- new SpriteBatch(x.GraphicsDevice)
@@ -23,6 +24,7 @@ type TargetGame () as x =
         targetSprite <- this.Content.Load<Texture2D>("target") 
         crosshairsSprite <- this.Content.Load<Texture2D>("crosshairs") 
         backgroundSprite <- this.Content.Load<Texture2D>("sky") 
+        gameFont <- this.Content.Load<SpriteFont>("galleryFont")
  
     override this.Update (gameTime) =
 
@@ -34,5 +36,7 @@ type TargetGame () as x =
         x.GraphicsDevice.Clear Color.CornflowerBlue
         spriteBatch.Begin()
         spriteBatch.Draw(backgroundSprite, Vector2(0f, 0f), Color.White)
-        spriteBatch.Draw(targetSprite, Vector2(0f, 0f), Color.White)
+        spriteBatch.DrawString(gameFont, "Test Message", Vector2(100f,100f), Color.White)
         spriteBatch.End()
+
+        base.Draw(gameTime)
