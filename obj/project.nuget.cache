@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Z6kNxCU1gNBn/o8EDuVprePzKmeTnK3pVbvgsKJKPnYy/WEIqtN/Ek77feKptTEXbFFPB6ZalXpunBiL+7bXJg==",
+  "success": true,
+  "projectFilePath": "C:\\Code\\F#\\TargetGame\\Game1.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DJandLiz\\.nuget\\packages\\fsharp.core\\6.0.1\\fsharp.core.6.0.1.nupkg.sha512",
+    "C:\\Users\\DJandLiz\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
+  ],
+  "logs": []
+}
