@@ -16,13 +16,8 @@ type TargetGame () as x =
     let mutable backgroundSprite = Unchecked.defaultof<Texture2D>
     
     override x.Initialize() =
-    
         spriteBatch <- new SpriteBatch(x.GraphicsDevice)
         base.Initialize()
-         
-         // TODO: Add your initialization logic here
-
-        ()
 
     override this.LoadContent() =
         targetSprite <- this.Content.Load<Texture2D>("target") 
@@ -36,9 +31,7 @@ type TargetGame () as x =
         ()
  
     override this.Draw (gameTime) =
-
         x.GraphicsDevice.Clear Color.CornflowerBlue
-        
-        // TODO: Add your drawing code here
-
-        ()
+        spriteBatch.Begin()
+        spriteBatch.Draw(targetSprite, Vector2(0f,0f), Color.White)
+        spriteBatch.End()
