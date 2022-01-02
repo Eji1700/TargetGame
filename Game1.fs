@@ -33,5 +33,6 @@ type TargetGame () as x =
     override this.Draw (gameTime) =
         x.GraphicsDevice.Clear Color.CornflowerBlue
         spriteBatch.Begin()
-        spriteBatch.Draw(targetSprite, Vector2(0f,0f), Color.White)
+        spriteBatch.Draw(backgroundSprite, Vector2(0f, 0f), Color.White)
+        spriteBatch.Draw(targetSprite, Vector2(0f, 0f), Color.White)
         spriteBatch.End()
