@@ -45,6 +45,8 @@ type TargetGame () as x =
         gameFont <- this.Content.Load<SpriteFont>("galleryFont")
  
     override this.Update (gameTime) =
+        if Keyboard.GetState().IsKeyDown(Keys.Escape) then 
+            this.Exit()
         mState <- Mouse.GetState()
         if mState.LeftButton = ButtonState.Pressed then Score <- Score + 1
 
