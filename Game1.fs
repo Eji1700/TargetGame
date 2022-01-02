@@ -22,10 +22,8 @@ type TargetGame () as x =
     let targetRadius = 45
 
     let mutable mState = Unchecked.defaultof<MouseState>
+    let mutable mRelease = true
     let mutable Score = 0
-
-    let increaseScore (mState: MouseState) score=
-        if mState.LeftButton = ButtonState.Pressed then score + 1 else score
 
     // let (|KeyDown|_|) k (state: KeyboardState) =
     //     if state.IsKeyDown k then Some() else None
@@ -45,10 +43,17 @@ type TargetGame () as x =
         gameFont <- this.Content.Load<SpriteFont>("galleryFont")
  
     override this.Update (gameTime) =
-        if Keyboard.GetState().IsKeyDown(Keys.Escape) then 
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back = ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) then 
             this.Exit()
+
         mState <- Mouse.GetState()
-        if mState.LeftButton = ButtonState.Pressed then Score <- Score + 1
+        match mState.LeftButton, mRelease with 
+        | ButtonState.Pressed, true -> 
+            Score <- Score + 1
+            mRelease <- false
+        | ButtonState.Released, false -> 
+            mRelease <- true
+        | _ -> ()
 
         base.Update(gameTime)
 
@@ -56,7 +61,7 @@ type TargetGame () as x =
         x.GraphicsDevice.Clear Color.CornflowerBlue
         spriteBatch.Begin()
         spriteBatch.Draw(backgroundSprite, Vector2(0f, 0f), Color.White)
-        spriteBatch.DrawString(gameFont, "Test Message", Vector2(100f,100f), Color.White)
+        spriteBatch.DrawString(gameFont, Score.ToString(), Vector2(100f,100f), Color.White)
         spriteBatch.Draw(targetSprite, targetPosition, Color.White)
         spriteBatch.End()
 
