@@ -25,6 +25,9 @@ type TargetGame () as x =
     let mutable mRelease = true
     let mutable Score = 0
 
+    let quitGame (game: TargetGame) =
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back = ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) then 
+            game.Exit()
     // let (|KeyDown|_|) k (state: KeyboardState) =
     //     if state.IsKeyDown k then Some() else None
 
@@ -43,8 +46,7 @@ type TargetGame () as x =
         gameFont <- this.Content.Load<SpriteFont>("galleryFont")
  
     override this.Update (gameTime) =
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back = ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) then 
-            this.Exit()
+        quitGame this
 
         mState <- Mouse.GetState()
         match mState.LeftButton, mRelease with 
