@@ -19,7 +19,7 @@ type TargetGame () as x =
     let mutable gameFont = Unchecked.defaultof<SpriteFont>
     
     let mutable targetPosition = Vector2(300f, 300f)
-    let targetRadius = 45
+    let targetRadius = 45f
 
     let mutable mState = Unchecked.defaultof<MouseState>
     let mutable mRelease = true
@@ -49,9 +49,10 @@ type TargetGame () as x =
         quitGame this
 
         mState <- Mouse.GetState()
+        let mouseTargetDist =  Vector2.Distance(targetPosition, mState.Position.ToVector2())
         match mState.LeftButton, mRelease with 
         | ButtonState.Pressed, true -> 
-            Score <- Score + 1
+            if mouseTargetDist <= targetRadius then Score <- Score + 1
             mRelease <- false
         | ButtonState.Released, false -> 
             mRelease <- true
@@ -64,7 +65,7 @@ type TargetGame () as x =
         spriteBatch.Begin()
         spriteBatch.Draw(backgroundSprite, Vector2(0f, 0f), Color.White)
         spriteBatch.DrawString(gameFont, Score.ToString(), Vector2(100f,100f), Color.White)
-        spriteBatch.Draw(targetSprite, targetPosition, Color.White)
+        spriteBatch.Draw(targetSprite, Vector2(targetPosition.X - targetRadius, targetPosition.Y - targetRadius), Color.White)
         spriteBatch.End()
 
         base.Draw(gameTime)
