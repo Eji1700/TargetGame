@@ -25,6 +25,9 @@ type TargetGame () as x =
     let mutable mState = Unchecked.defaultof<MouseState>
     let mutable mRelease = true
     let mutable Score = 0
+    let mutable whiteRectangle = Unchecked.defaultof<Texture2D>
+    
+    
 
     let quitGame (game: TargetGame) =
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back = ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) then 
@@ -42,10 +45,17 @@ type TargetGame () as x =
         base.Initialize()
 
     override this.LoadContent() =
+        spriteBatch <- new SpriteBatch(this.GraphicsDevice)
         targetSprite <- this.Content.Load<Texture2D>("target") 
         crosshairsSprite <- this.Content.Load<Texture2D>("crosshairs") 
         backgroundSprite <- this.Content.Load<Texture2D>("sky") 
         gameFont <- this.Content.Load<SpriteFont>("galleryFont")
+        whiteRectangle <- new Texture2D(this.GraphicsDevice, 1, 1)
+        whiteRectangle.SetData([|Color.White|])
+
+    override this.UnloadContent() =
+        spriteBatch.Dispose()
+        whiteRectangle.Dispose()
  
     override this.Update (gameTime) =
         quitGame this
@@ -69,9 +79,9 @@ type TargetGame () as x =
     override this.Draw (gameTime) =
         x.GraphicsDevice.Clear Color.CornflowerBlue
         spriteBatch.Begin()
-        spriteBatch.Draw(backgroundSprite, Vector2(0f, 0f), Color.White)
+        // spriteBatch.Draw(backgroundSprite, Vector2(0f, 0f), Color.White)
         spriteBatch.DrawString(gameFont, Score.ToString(), Vector2(100f,100f), Color.White)
         spriteBatch.Draw(targetSprite, Vector2(targetPosition.X - targetRadius, targetPosition.Y - targetRadius), Color.White)
+        spriteBatch.Draw(whiteRectangle, Rectangle(10,20,80,30), Color.Chocolate)
         spriteBatch.End()
-
         base.Draw(gameTime)
